@@ -1,0 +1,75 @@
+\chapter{Réalisation et Interfaces}
+
+\section{Interface Utilisateur (Frontend)}
+Le frontend a été développé avec Next.js pour offrir une interface fluide et réactive. Nous avons utilisé des composants réutilisables pour assurer une cohérence visuelle.
+
+\subsection{Page de Connexion}
+\begin{figure}[H]
+    \centering
+    % Placeholder screenshot
+    \fbox{\begin{minipage}{0.8\textwidth}
+        \centering
+        \vspace{3cm}
+        \textbf{[Capture d'écran de la page de Login]}
+        \vspace{3cm}
+    \end{minipage}}
+    \caption{Page d'Authentification}
+    \label{fig:login_page}
+\end{figure}
+
+\subsection{Tableau de Bord (Dashboard)}
+Le tableau de bord présente les indicateurs clés (KPI) tels que les produits en rupture de stock et les alertes de péremption imminente.
+
+\begin{figure}[H]
+    \centering
+    % Placeholder screenshot
+    \fbox{\begin{minipage}{0.9\textwidth}
+        \centering
+        \vspace{4cm}
+        \textbf{[Capture d'écran du Dashboard]}
+        \vspace{4cm}
+    \end{minipage}}
+    \caption{Tableau de Bord Principal}
+    \label{fig:dashboard}
+\end{figure}
+
+\subsection{Formulaire de Sortie de Stock}
+L'écran suivant permet aux utilisateurs de saisir les sorties de stock, avec validation des quantités disponibles.
+
+\begin{figure}[H]
+    \centering
+    % Placeholder screenshot
+    \fbox{\begin{minipage}{0.8\textwidth}
+        \centering
+        \vspace{3cm}
+        \textbf{[Capture d'écran du Formulaire de Sortie]}
+        \vspace{3cm}
+    \end{minipage}}
+    \caption{Interface de Sortie de Stock}
+    \label{fig:stock_exit}
+\end{figure}
+
+\section{Exemple de Code Frontend}
+Voici un extrait du composant React gérant le formulaire de sortie de stock :
+
+\begin{lstlisting}[language=Javascript, caption=Extrait de stock-exit-form.tsx]
+// Extrait de code représentatif (simplifié)
+const StockExitForm = () => {
+  const { register, handleSubmit } = useForm();
+  
+  const onSubmit = async (data) => {
+    try {
+      await api.post('/stock/exit', data);
+      toast.success('Sortie enregistrée');
+    } catch (error) {
+      toast.error('Erreur lors de la sortie');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* Champs du formulaire */}
+    </form>
+  );
+};
+\end{lstlisting}

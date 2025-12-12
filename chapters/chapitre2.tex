@@ -1,0 +1,60 @@
+\chapter{Conception de la Base de Données}
+
+\section{Modèle de Données}
+Le stockage des données est assuré par une base de données relationnelle PostgreSQL. Le schéma a été conçu pour garantir l'intégrité des stocks et la traçabilité des opérations.
+
+\section{Structure des Tables Principales}
+
+\subsection{Table \texttt{products}}
+Cette table centralise les informations sur les médicaments gérés.
+
+\begin{lstlisting}[language=SQL, caption=Structure de la table products]
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    sku VARCHAR(100) UNIQUE, -- Stock Keeping Unit
+    barcode VARCHAR(255) UNIQUE, -- Code-barres
+    category_id INT,
+    supplier_id INT,
+    alert_threshold INT DEFAULT 10, -- Seuil de stock pour les alertes
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+);
+\end{lstlisting}
+
+\subsection{Table \texttt{stock\_items}}
+Elle représente le cœur du système, gérant les lots individuels, leurs quantités et leurs dates de péremption.
+
+\begin{lstlisting}[language=SQL, caption=Structure de la table stock\_items]
+CREATE TABLE stock_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    lot_number VARCHAR(100) NOT NULL, -- Numéro de lot
+    quantity INT NOT NULL CHECK (quantity >= 0),
+    expiry_date DATE NOT NULL, -- Date de péremption (DLU)
+    location_id INT,
+    received_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (product_id, lot_number),
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
+\end{lstlisting}
+
+\subsection{Table \texttt{users}}
+Gestion des utilisateurs et de leurs rôles (Admin, Pharmacien, etc.).
+
+\begin{lstlisting}[language=SQL, caption=Structure de la table users]
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+\end{lstlisting}

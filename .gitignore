@@ -1,0 +1,17 @@
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.pdf
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*_minted-*
+
+# Editor files
+.vscode/
+.idea/
+*.swp

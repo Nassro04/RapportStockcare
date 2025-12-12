@@ -1,0 +1,26 @@
+\chapter{Contexte et Étude Technique}
+
+\section{Introduction}
+La gestion efficace des stocks pharmaceutiques est cruciale pour garantir la disponibilité des médicaments et la sécurité des patients. Le projet Stockcare vise à répondre aux défis courants tels que la rupture de stock, le gaspillage dû à la péremption et le manque de traçabilité.
+
+\section{Objectifs du Projet}
+\begin{itemize}
+    \item Suivi en temps réel des niveaux de stock.
+    \item Gestion des dates de péremption (FEFO - First Expired, First Out).
+    \item Traçabilité des entrées et sorties par utilisateur et lot.
+    \item Tableaux de bord décisionnels.
+\end{itemize}
+
+\section{Choix Technologiques}
+
+\subsection{Backend : Spring Boot}
+Nous avons choisi Spring Boot pour sa robustesse et sa capacité à gérer des architectures complexes. Il facilite la création d'APIs REST sécurisées et performantes.
+
+\subsection{Frontend : Next.js (React)}
+Next.js offre une excellente expérience développeur et utilisateur, avec le rendu côté serveur (SSR) et une gestion optimisée des routes, essentiel pour une application dashboard réactive.
+
+\subsection{Base de Données : PostgreSQL}
+Pour la persistance des données, PostgreSQL a été retenu pour sa fiabilité et sa conformité aux standards SQL, crucial pour des données critiques comme les stocks médicaux.
+
+\subsection{Conteneurisation : Docker}
+L'ensemble de l'application est conteneurisé pour faciliter le déploiement et garantir la cohérence entre les environnements de développement et de production.
